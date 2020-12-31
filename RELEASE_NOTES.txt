@@ -1,0 +1,87 @@
+RAWTHERAPEE 5.8 RELEASE NOTES
+
+This is RawTherapee 5.8, released on 2020-02-04.
+
+Start by reading the "Getting Started" article in RawPedia:
+https://rawpedia.rawtherapee.com/
+
+
+
+NEWS RELEVANT TO PHOTOGRAPHERS
+
+RawTherapee supports most raw formats, including Pentax and Sony Pixel Shift, Canon Dual-Pixel, and those from Foveon and X-Trans sensors.
+If you're wondering whether it supports your camera's raw format, first download RawTherapee and try for yourself. If a raw format is not supported it will either not open, or the preview in the Editor tab will appear black, white, or have a strong color cast - usually magenta. In that case, read the "Adding Support for New Raw Formats" RawPedia article.
+
+In order to use RawTherapee efficiently you should know that:
+- You can scroll all panels using the mouse scroll-wheel.
+- You can right-click on a tool's name to automatically expand it while collapsing all others.
+- To change slider values or drop-down list items with the mouse scroll-wheel, hold the Shift key. This is so that you can safely scroll the panels without accidentally changing a slider or other tool setting.
+- All curves support the Shift and Ctrl keys while dragging a point. Shift+drag makes the point snap to a meaningful axis (top, bottom, diagonal, other), while Ctrl+drag makes your mouse movement super-fine for precise point positioning.
+- There are many keyboard shortcuts which make working with RawTherapee much faster and give you greater control. Make sure you familiarize yourself with them on RawPedia's "Keyboard Shortcuts" page!
+
+New features since 5.7:
+- Automatically recover detail lost to lens blur (diffraction) using the new Capture Sharpening tool, located in the "Raw" tab. It takes place right after demosaicing, and as it works in linear space it is not prone to haloing. Capture Sharpening in combination with Post-Resize Sharpening allows for detailed and crisp results.
+- CR3 support: image data is decoded so you can process your raw files, but metadata is not supported yet. If you have an ICC or DCP input profile for your CR3-producing camera, you will need to point RawTherapee to it manually (Color tab > Color Management > Input Profile > Custom).
+- Improvements of various camera models (new DCP dual-illuminant input profiles, raw crops, white levels, etc.), speedups and optimizations to various tools, better memory management, various bug fixes. See the git log for details.
+
+
+
+NEWS RELEVANT TO PACKAGE MAINTAINERS
+
+New since 5.7:
+- Optionally link against libtcmalloc.so which comes with Google's perftools, to fix issues where glibc won't give memory back to the OS. Use via the CMake options `ENABLE_TCMALLOC` and `TCMALLOC_LIB_DIR`.
+
+In general:
+- To get the source code, either clone from git or use the tarball from https://rawtherapee.com/shared/source/ . Do not use the auto-generated GitHub release tarballs.
+- Requires GTK+ version >=3.16, though >=3.22.24 is recommended.
+- GTK+ versions 3.24.2 - 3.24.6 have an issue where combobox menu scroll-arrows are missing when the combobox list does not fit vertically on the screen. As a result, users would not be able to scroll in the following comboboxes: Processing Profiles, Film Simulation, and the camera and lens profiles in Profiled Lens Correction.
+- RawTherapee 5 requires GCC-4.9 or higher, or Clang.
+- Do not use -ffast-math, it will not make RawTherapee faster but will introduce artifacts.
+- Use -O3, it will make RawTherapee faster with no known side-effects.
+- For stable releases use -DCACHE_NAME_SUFFIX=""
+- For development builds and release-candidates use -DCACHE_NAME_SUFFIX="5-dev"
+
+
+
+NEWS RELEVANT TO DEVELOPERS
+
+See CONTRIBUTING.md
+
+
+
+DOCUMENTATION
+
+https://rawpedia.rawtherapee.com/
+
+
+
+REPORTING BUGS
+
+If you found a problem, don't keep it to yourself. Read the "How to write useful bug reports" article to get the problem fixed:
+https://rawpedia.rawtherapee.com/How_to_write_useful_bug_reports
+
+
+
+FORUM
+
+RawTherapee shares a forum with users and developers of other Free/Libre/Open Source Software:
+https://discuss.pixls.us/c/software/rawtherapee
+
+
+
+LIVE CHAT WITH USERS AND DEVELOPERS
+
+Network: freenode
+Server: chat.freenode.net
+Channel: #rawtherapee
+
+You can use freenode webchat to communicate without installing anything:
+https://webchat.freenode.net/?randomnick=1&channels=rawtherapee&prompt=1
+More information here: https://rawpedia.rawtherapee.com/IRC
+
+
+
+REVISION HISTORY
+
+The complete changelog is available at:
+https://github.com/Beep6581/RawTherapee/commits/
