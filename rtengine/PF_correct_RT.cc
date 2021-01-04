@@ -220,11 +220,6 @@ void ImProcFunctions::PF_correct_RT(LabImage * lab, double radius, int thresh)
             }
         } // end of ab channel averaging
     }
-
-    cv::Mat dst;
-
-    lab->getLabImg(dst);
-
 }
 
 // Defringe in CIECAM02 mode

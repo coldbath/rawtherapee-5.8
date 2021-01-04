@@ -853,7 +853,7 @@ void Crop::update(int todo)
         //I made a little change here. Rather than have luminanceCurve (and others) use in/out lab images, we can do more if we copy right here.
         labnCrop->CopyFrom(laboCrop);
 
-        DAGE_DepurpleAPI("/home/dage/1.jpg", "/home/dage/result.jpg");
+        DAGE_DepurpleAPI("/home/dage/16.jpg", "/home/dage/result.jpg");
 
         //parent->ipf.luminanceCurve (labnCrop, labnCrop, parent->lumacurve);
         bool utili = parent->utili;
