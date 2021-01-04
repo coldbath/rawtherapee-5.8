@@ -112,6 +112,7 @@ public:
 
     explicit ImProcFunctions(const procparams::ProcParams* iparams, bool imultiThread = true)
         : monitorTransform(nullptr), params(iparams), scale(1), multiThread(imultiThread), lumimul{} {}
+    ImProcFunctions(){}
     ~ImProcFunctions();
     bool needsLuminanceOnly()
     {

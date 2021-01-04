@@ -41,7 +41,33 @@ void LabImage::CopyFrom(LabImage *Img)
 
 void LabImage::CopyFromMat(cv::Mat src)
 {
-    memcpy(data, src.data, W * H * 3 * sizeof(float));
+    // memcpy(data, src.data, W * H * 3 * sizeof(float));
+    
+    for (size_t i = 0; i < H; i++)
+    {
+        for (size_t j = 0; j < W; j++)
+        {
+            L[j][i] = src.at<cv::Vec3f>(j, i)[0];
+            a[j][i] = src.at<cv::Vec3f>(j, i)[1];
+            b[j][i] = src.at<cv::Vec3f>(j, i)[2];
+        }
+        
+    }
+    
+}
+
+void LabImage::loadLabImg(std::string filePath, int w, int h)
+{
+    FILE *fp;
+
+    fp = fopen(filePath.c_str(), "rb");
+
+    if(fp == NULL)
+        return ;
+
+    fread(data, 1, w * h * 3 * sizeof(float), fp);
+
+    fclose(fp);
 }
 
 void LabImage::getLabImg(cv::Mat &dst)

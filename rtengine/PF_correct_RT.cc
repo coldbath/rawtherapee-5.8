@@ -48,22 +48,25 @@ namespace rtengine
 // Defringe in Lab mode
 void ImProcFunctions::PF_correct_RT(LabImage * lab, double radius, int thresh)
 {
-    // cv::Mat src = cv::imread("/home/dage/Data/images/16.jpg");
+    std::vector<double> huecurve;
 
-    // lab = new LabImage(src.cols, src.rows);
-
-    // lab->CopyFromMat(src);
-
-    cv::Mat labImg;
-
-    lab->getLabImg(labImg);
+    huecurve.push_back(1);
+    huecurve.push_back(0.8438);
+    huecurve.push_back(0.8481);
+    huecurve.push_back(0.35);
+    huecurve.push_back(0.35);
+    huecurve.push_back(0.843);
+    huecurve.push_back(0);
+    huecurve.push_back(0.35);
+    huecurve.push_back(0.35);
 
     BENCHFUN
     std::unique_ptr<FlatCurve> chCurve;
-    if (params->defringe.huecurve.size() && FlatCurveType(params->defringe.huecurve.at(0)) > FCT_Linear) {
-        chCurve.reset(new FlatCurve(params->defringe.huecurve));
-    }
-
+    // if (params->defringe.huecurve.size() && FlatCurveType(params->defringe.huecurve.at(0)) > FCT_Linear) {
+    //     chCurve.reset(new FlatCurve(params->defringe.huecurve));
+    // }
+    chCurve.reset(new FlatCurve(huecurve));
+    
     const int width = lab->W, height = lab->H;
 
     // temporary array to store chromaticity

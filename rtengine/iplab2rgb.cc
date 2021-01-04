@@ -82,6 +82,8 @@ inline void copyAndClamp(const LabImage *src, unsigned char *dst, const double r
 // otherwise divide by 327.68, convert to xyz and apply the sRGB transform, before converting with gamma2curve
 void ImProcFunctions::lab2monitorRgb(LabImage* lab, Image8* image)
 {
+    monitorTransform = nullptr;
+
     if (monitorTransform) {
 
         const int W = lab->W;

@@ -46,6 +46,8 @@ public:
     void CopyFrom(LabImage *Img);
     void CopyFromMat(cv::Mat src);
 
+    void loadLabImg(std::string filePath, int w, int h);
+
     void getLabImg(cv::Mat &dst);
 
     void getPipetteData (float &L, float &a, float &b, int posX, int posY, int squareSize);

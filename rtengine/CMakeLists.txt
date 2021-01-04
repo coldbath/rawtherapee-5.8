@@ -132,6 +132,7 @@ set(RTENGINESOURCEFILES
     utils.cc
     vng4_demosaic_RT.cc
     xtrans_demosaic.cc
+    depurple.cc
 )
 
 if(LENSFUN_HAS_LOAD_DIRECTORY)

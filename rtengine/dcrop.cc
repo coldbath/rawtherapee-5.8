@@ -34,6 +34,8 @@
 
 #include "opencv2/opencv.hpp"
 
+#include "depurple.h"
+
 namespace
 {
 
@@ -851,6 +853,7 @@ void Crop::update(int todo)
         //I made a little change here. Rather than have luminanceCurve (and others) use in/out lab images, we can do more if we copy right here.
         labnCrop->CopyFrom(laboCrop);
 
+        DAGE_DepurpleAPI("/home/dage/1.jpg", "/home/dage/result.jpg");
 
         //parent->ipf.luminanceCurve (labnCrop, labnCrop, parent->lumacurve);
         bool utili = parent->utili;
@@ -874,34 +877,7 @@ void Crop::update(int todo)
         // for all treatments Defringe, Sharpening, Contrast detail , Microcontrast they are activated if "CIECAM" function are disabled
         if (skip == 1) {
             if ((params.colorappearance.enabled && !settings->autocielab)  || (!params.colorappearance.enabled)) {
-                // parent->ipf.impulsedenoise(labnCrop);
-                
-                //before
-                parent->ipf.lab2monitorRgb(labnCrop, cropImg);
-
-                cv::Mat before;
-
-                before.create(cropImg->getHeight(), cropImg->getWidth(), CV_8UC3);
-                before.setTo(0);
-
-                memcpy(before.data, cropImg->data, before.rows*before.cols*3);
-
-                cv::cvtColor(before, before, CV_RGB2BGR);
-                cv::imwrite("/home/dage/Data/before.jpg", before);
-
                 parent->ipf.defringe(labnCrop);
-
-                parent->ipf.lab2monitorRgb(labnCrop, cropImg);
-
-                cv::Mat after;
-
-                after.create(cropImg->getHeight(), cropImg->getWidth(), CV_8UC3);
-                after.setTo(0);
-
-                memcpy(after.data, cropImg->data, after.rows*after.cols*3);
-
-                cv::cvtColor(after, after, CV_RGB2BGR);
-                cv::imwrite("/home/dage/Data/after.jpg", after);
             }
 
             // parent->ipf.MLsharpen(labnCrop);
@@ -1052,18 +1028,6 @@ void Crop::update(int todo)
 
     // Computing the preview image, i.e. converting from lab->Monitor color space (soft-proofing disabled) or lab->Output profile->Monitor color space (soft-proofing enabled)
     parent->ipf.lab2monitorRgb(labnCrop, cropImg);
-
-    cv::Mat dst;
-
-    dst.create(cropImg->getHeight(), cropImg->getWidth(), CV_8UC3);
-    dst.setTo(0);
-
-    memcpy(dst.data, cropImg->data, dst.rows*dst.cols*3);
-
-    cv::cvtColor(dst, dst, CV_RGB2BGR);
-    cv::imwrite("/home/dage/Data/opencv.jpg", dst);
-
-    cropImg->saveAsJPEG ("/home/dage/Data/test.jpg");
 
     if (cropImageListener) {
         // Computing the internal image for analysis, i.e. conversion from lab->Output profile (rtSettings.HistogramWorking disabled) or lab->WCS (rtSettings.HistogramWorking enabled)
